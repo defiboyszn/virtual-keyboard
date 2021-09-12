@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Virtual keyboard • DativeJs</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css">
+</head>
+
+<body>
+  <div id="keyboard"></div>
+</body>
+  <script type="module">
+    import Dative from 'https://unpkg.com/dativejs?module';
+    
+    var app = new Dative({
+      el: '#keyboard',
+      data(){
+        var keys = ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m'];
+        var emoji = ['😀','😁','😂','🤣','😃','😅','😆','😉','😊','😋','😎','😍','😘','😗','😙','😚','☺️','🙂','🤗','🤗','🤩','🤔'];
+        return{
+          keys,
+          emoji
+        }
+      },
+      template(){
+        return `
+          <h1 class="text-4xl font-bold">Virtual keyboard</h1><br />
+          <div class="py-5 px-3 shadow-2xl absolute w-full h-50" dv-ref="screen"></div>
+          <div class="bg-gray-700 text-white py-5 relative shadow-2xl top-52">
+          <div class="mx-1">
+          <div class="text-center" dv-ref="keys">
+            ${
+              this.data.keys.map(key=>{
+                return `
+                ${key === 'a' ? '<br>': ''}
+                ${key === 'z' ? '<br>': ''}
+                  <button class="shadow px-3 py-5 mx-0" dv-on:click="log">${key}</button>
+                `
+              }).join('')
+            }
+            </div>
+            <div dv-ref="emoji" class="hidden">
+              ${
+              this.data.emoji.map(key=>{
+              return `
+              <button class="shadow px-3 py-5 mx-0" dv-on:click="log">${key}</button>
+              `
+              }).join('')
+              }
+            </div>
+            <br />
+           <button class="shadow px-3 py-3 absolute bottom-15" dv-on:click="emoji" dv-ref="emm">emoji</button>
+           <button class="shadow px-3 py-3 absolute right-5 bottom-3" dv-on:click="backspace"><—</button><br />
+           <button class="md:text-center shadow px-10 py-3 absolute left-28 bottom-3" dv-on:click="space">Space</button>
+           <button class="shadow px-3 py-3 absolute right-15 bottom-3" dv-on:click="enter">Enter</button><br /><br /><br />
+          </div>
+          </div>
+        `
+      },
+      methods:{
+        log(e){
+          this.$ref.screen.innerHTML += e.target.textContent;
+        },
+        backspace(){
+          var str = this.$ref.screen.innerHTML;
+          var a$ = str.split('');
+          a$.pop();
+          this.$ref.screen.innerHTML = a$.join('')
+        },
+        space(){
+          this.$ref.screen.innerHTML += '&nbsp;'
+        },
+        enter(){
+          this.$ref.screen.innerHTML += '<br />'
+        },
+        emoji(){
+          if(this.$ref.emoji.style.display === 'block'){
+            this.$ref.emoji.style.display = 'none';
+            this.$ref.keys.style.display = 'block';
+            this.$ref.emm.innerHTML = 'emoji';
+          }else{
+            this.$ref.emoji.style.display = 'block';
+            this.$ref.keys.style.display = 'none';
+            this.$ref.emm.innerHTML = 'keypad';
+          }
+        }
+      }
+    })
+    app.render()
+  </script>
+</html>
