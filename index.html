@@ -26,6 +26,7 @@
       },
       template(){
         return `
+        <div>
           <h1 class="text-4xl font-bold">Virtual keyboard</h1><br />
           <div class="py-5 px-3 shadow-2xl absolute w-full h-50" dv-ref="screen"></div>
           <div class="bg-gray-700 text-white py-5 relative shadow-2xl top-52">
@@ -49,7 +50,7 @@
            <button class="shadow px-3 py-3 absolute right-15 bottom-3" dv-on:click="enter()">Enter</button><br /><br /><br />
           </div>
           </div>
-        `
+        </div>`
       },
       methods:{
         log(e){
