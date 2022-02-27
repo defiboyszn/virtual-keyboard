@@ -34,12 +34,12 @@
            {{#each keys as key}}
                 {{key === 'a' ? '<br>': ''}}
                 {{key === 'z' ? '<br>': ''}}
-              <button class="shadow px-3 py-5 mx-0" dv-on:click="log">{{key}}</button>
+              <button class="shadow px-3 py-5 mx-0" dv-on:click="log($event)">{{key}}</button>
             {{/each}}
             </div>
             <div dv-ref="emoji" class="hidden">
               {{#each emoji as key}}
-                <button class="shadow px-3 py-5 mx-0" dv-on:click="log">{{key}}</button>
+                <button class="shadow px-3 py-5 mx-0" dv-on:click="log($event)">{{key}}</button>
               {{/each}}
             </div>
             <br />
