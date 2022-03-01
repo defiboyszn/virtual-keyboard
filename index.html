@@ -24,8 +24,7 @@
           emoji
         }
       },
-      template(){
-        return `
+      template: `
         <div>
           <h1 class="text-4xl font-bold">Virtual keyboard</h1><br />
           <div class="py-5 px-3 shadow-2xl absolute w-full h-50" dv-ref="screen"></div>
@@ -38,7 +37,7 @@
               <button class="shadow px-3 py-5 mx-0" dv-on:click="log($event)">{{key}}</button>
             {{/each}}
             </div>
-            <div dv-ref="emoji" class="hidden">
+            <div #emoji class="hidden">
               {{#each emoji as key}}
                 <button class="shadow px-3 py-5 mx-0" dv-on:click="log($event)">{{key}}</button>
               {{/each}}
@@ -50,8 +49,7 @@
            <button class="shadow px-3 py-3 absolute right-15 bottom-3" dv-on:click="enter()">Enter</button><br /><br /><br />
           </div>
           </div>
-        </div>`
-      },
+        </div>`,
       methods:{
         log(e){
           this.$ref.screen.innerHTML += e.target.textContent;
